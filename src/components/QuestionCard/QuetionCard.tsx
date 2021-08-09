@@ -1,6 +1,6 @@
 import { MouseEvent } from 'react';
 
-import { Answer } from 'App';
+import { Answer } from 'types/question.type';
 
 import { Wrapper, ButtonWrapper } from './QuetionCard.styles';
 type Props = {
@@ -25,7 +25,7 @@ const QuestionCard: React.FC<Props> = ({
       <p className="number">
         Question: {questionNumber + 1} / {totalQuestions}
       </p>
-      <p>{question} </p>
+      <p dangerouslySetInnerHTML={{ __html: question }} />
       <div>
         {answers.map((answer, index) => (
           <ButtonWrapper
@@ -34,7 +34,7 @@ const QuestionCard: React.FC<Props> = ({
             userClicked={userAnswer?.answer === answer}
           >
             <button disabled={!!userAnswer} value={answer} onClick={callback}>
-              <span>{answer}</span>
+              <span dangerouslySetInnerHTML={{ __html: answer }} />
             </button>
           </ButtonWrapper>
         ))}

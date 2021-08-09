@@ -2,15 +2,9 @@ import { useState, MouseEvent } from 'react';
 
 import QuestionCard from 'components/QuestionCard/QuetionCard';
 
-import { fetchQuizQuestions, Difficulty, QuestionState } from 'apis/apis';
+import { fetchQuestion } from 'apis/Question';
 import { GlobalStyle, Wrapper } from 'App.style';
-
-export type Answer = {
-  question: string;
-  answer: string;
-  correct: boolean;
-  correctAnswer: string;
-};
+import { Difficulty, QuestionState, Answer } from 'types/question.type';
 
 const TOTAL_QUESTION = 10;
 
@@ -25,11 +19,7 @@ const App = () => {
   const startQuiz = async () => {
     setLoading(true);
     setGameOver(false);
-    const newQuestions = await fetchQuizQuestions(
-      TOTAL_QUESTION,
-      Difficulty.EASY,
-    );
-    console.log(newQuestions);
+    const newQuestions = await fetchQuestion(TOTAL_QUESTION, Difficulty.EASY);
     setQuestions(newQuestions);
     setScore(0);
     setUserAnwers([]);
