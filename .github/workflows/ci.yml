@@ -67,13 +67,12 @@ jobs:
         run: yarn build
 
   deployment:
-    name: Deploy
+    name: Netlify Deploy
     runs-on: ubuntu-latest
     needs: ['unittest', 'quality', 'build']
     steps:
-      - uses: actions/checkout@v2
-      - uses: akhileshns/heroku-deploy@v3.12.12
+      - uses: jsmrcaga/action-netlify-deploy@v1.6.0
         with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: 'dimc-react-quiz'
-          heroku_email: 'developer.donaldivan@gmail.com'
+          NETLIFY_AUTH_TOKEN: ${{secrets.HEROKU_API_KEY}}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_DEPLOY_TO_PROD: 'dimc-react-quiz'
